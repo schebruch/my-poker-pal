@@ -1,15 +1,17 @@
 import MenuButton from '@/components/MenuButton';
 import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { SessionContext } from './context/SessionContext';
+
 import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  KeyboardAvoidingView,
-  Platform,
-  TouchableWithoutFeedback,
-  Keyboard,
+    Keyboard,
+    KeyboardAvoidingView,
+    Platform,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableWithoutFeedback,
+    View,
 } from 'react-native';
 
 export default function NewSessionScreen() {
@@ -20,6 +22,7 @@ export default function NewSessionScreen() {
   const [bigBlind, setBigBlind] = useState('');
   const [casino, setCasino] = useState('');
   const [formError, setFormError] = useState('');
+  const { startSession } = useContext(SessionContext);
 
   const handleChange = (text: string) => {
     const numericValue = text.replace(/[^0-9]/g, '');
@@ -35,6 +38,7 @@ export default function NewSessionScreen() {
     if (!buyInError && buyIn && casino && smallBlind && bigBlind) {
       console.log('Starting session with buy-in:', buyIn);
       setFormError('');
+      startSession();
       router.push('/home');
     } else{
         setFormError('Please fill out all fields correctly before starting the session.');

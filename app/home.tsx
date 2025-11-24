@@ -1,14 +1,15 @@
 import MenuButton from '@/components/MenuButton';
 import { useRouter } from 'expo-router';
 import React from 'react';
-
+import { useContext } from 'react';
+import { SessionContext } from './context/SessionContext';
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function HomeScreen() {
 
     const router = useRouter();
-
+    const { activeSession } = useContext(SessionContext);
 
     return (
         <View style={styles.container}>
@@ -17,11 +18,15 @@ export default function HomeScreen() {
             <View style={styles.buttonGroup}>
                 <MenuButton
                     title="Begin New Session"
+                    disabled={activeSession}
                     onPress={() => router.push('/new-session')}
+                    color={activeSession ? '#555' : '#1d3557'}
                 />
                 <MenuButton
                     title="Current Session"
                     onPress={() => console.log("TODO View Current Session")}
+                    disabled={!activeSession}
+                    color={activeSession ? '#1d3557' : '#555'}
                 />
                 <MenuButton
                     title="Add Bankroll"
