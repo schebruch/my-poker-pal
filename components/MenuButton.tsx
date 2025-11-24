@@ -5,16 +5,17 @@ interface MenuButtonProps {
     title: string;
     onPress: () => void;
     color?: string;
+    textcolor?: string;
 }
 
-export default function MenuButton({ title, onPress, color = '#e63946' }: MenuButtonProps) {
+export default function MenuButton({ title, onPress, color = '#1d3557'}: MenuButtonProps) {
   return (
     <TouchableOpacity
       style={[styles.button, { backgroundColor: color }]}
       onPress={onPress}
       activeOpacity={0.8}
     >
-      <Text style={styles.text}>{title}</Text>
+      <Text style={[styles.text]}>{title}</Text>
     </TouchableOpacity>
   );
 }

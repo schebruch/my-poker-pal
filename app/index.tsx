@@ -15,8 +15,6 @@ import {
 export default function LoginScreen() {
   const router = useRouter();
 
-  const handleLogin = () => router.push('/home');
-  const handleCreateAccount = () => router.push('/home');
 
   return (
     <KeyboardAvoidingView
@@ -46,13 +44,13 @@ export default function LoginScreen() {
           <View style={styles.groupedInput}>
             <MenuButton
               title="Log In"
-              onPress={handleLogin}
+              onPress={() => router.push('/home')}
               color="#e63946"
             />
 
             <MenuButton
               title="Create Account"
-              onPress={handleCreateAccount}
+              onPress={() => router.push('/home')}
               color="#1d3557"
             />
           </View>
