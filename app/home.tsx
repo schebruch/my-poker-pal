@@ -16,18 +16,19 @@ export default function HomeScreen() {
             <Text style={styles.text}>Welcome, Sam!</Text>
             <Text style={styles.text}>Current Bankroll: $10,000</Text>
             <View style={styles.buttonGroup}>
-                <MenuButton
+                {activeSession ? null : <MenuButton
                     title="Begin New Session"
-                    disabled={activeSession}
                     onPress={() => router.push('/new-session')}
-                    color={activeSession ? '#555' : '#1d3557'}
-                />
-                <MenuButton
+                />}
+                {activeSession ? <MenuButton
+                    title="End Session"
+                    color="#e63946"
+                    onPress={() => console.log("TODO End Session")}
+                /> : null}
+                {activeSession ? <MenuButton
                     title="Current Session"
-                    onPress={() => console.log("TODO View Current Session")}
-                    disabled={!activeSession}
-                    color={activeSession ? '#1d3557' : '#555'}
-                />
+                    onPress={() => router.push('/current-session')}
+                /> : null}
                 <MenuButton
                     title="Add Bankroll"
                     onPress={() => console.log("TODO Add Bankroll")}
