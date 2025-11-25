@@ -2,16 +2,18 @@ import { useRouter } from "expo-router";
 import React, { useContext } from "react";
 import { SessionContext } from "./context/SessionContext";
 import MenuButton from "@/components/MenuButton";
+import SwipeableItem, { UnderlayParams } from "react-native-swipeable-item";
 
-import { StyleSheet, Text, TextInput, View } from "react-native";
-
+import { StyleSheet, Text, TextInput, View, ScrollView } from "react-native";
+import { GlobalStyles } from "@/global-styles";
 export default function Rebuy() {
   const router = useRouter();
   const { addBuyIn, buyIns } = useContext(SessionContext);
   const [rebuyAmount, setRebuyAmount] = React.useState("");
 
+  
   return (
-    <View style={styles.container}>
+    <View style={[GlobalStyles.container, { alignItems: "stretch" }]}>
       <Text style={styles.headerTitle}>Buy-Ins This Session</Text>
 
       {/* Header row */}
@@ -22,25 +24,27 @@ export default function Rebuy() {
       </View>
 
       {/* Card list */}
-      {buyIns.map((buyIn, index) => (
-        <View key={index} style={styles.card}>
-          <Text style={styles.tableText}>${buyIn.amount}</Text>
-          <Text style={styles.tableText}>{buyIn.casino}</Text>
-          <Text style={styles.tableText}>
-            {buyIn.timestamp.toLocaleString(undefined, {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: true, 
-            })}
-          </Text>
-        </View>
-      ))}
+      <ScrollView style={styles.scrollArea}>
+        {buyIns.map((buyIn, index) => (
+          <View key={index} style={styles.card}>
+            <Text style={styles.tableText}>${buyIn.amount}</Text>
+            <Text style={styles.tableText}>{buyIn.casino}</Text>
+            <Text style={styles.tableText}>
+              {buyIn.timestamp.toLocaleString(undefined, {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true,
+              })}
+            </Text>
+          </View>
+        ))}
+      </ScrollView>
 
       {/* Rebuy Button */}
-      <Text style={styles.label}>Enter Rebuy Amount</Text>
+      <Text style={[GlobalStyles.label, {textAlign: "center"}]}>Enter Rebuy Amount</Text>
       <TextInput
         style={styles.input}
         value={rebuyAmount}
@@ -67,17 +71,10 @@ export default function Rebuy() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#0b0b0b",
-    padding: 20,
-  },
-  label: {
-    color: "white",
-    fontSize: 18,
-    marginBottom: 8,
-    textAlign: "center",
-    marginTop: 20,
+  scrollArea: {
+    flexGrow: 0,
+    maxHeight: "50%", // adjust as desired
+    marginBottom: 20,
   },
 
   input: {
@@ -110,7 +107,7 @@ const styles = StyleSheet.create({
   header: {
     flex: 1,
     color: "#aaa",
-    fontSize: 14,
+    fontSize: 20,
     fontWeight: "bold",
     textTransform: "uppercase",
     letterSpacing: 1,
@@ -119,7 +116,7 @@ const styles = StyleSheet.create({
   card: {
     width: "100%",
     backgroundColor: "#1a1a1a",
-    padding: 16,
+    padding: 8,
     borderRadius: 12,
     marginBottom: 10,
     borderWidth: 1,
@@ -130,7 +127,6 @@ const styles = StyleSheet.create({
   tableText: {
     flex: 1,
     color: "#ccc",
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: 16,
   },
 });

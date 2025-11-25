@@ -5,12 +5,12 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
-  StyleSheet,
   Text,
   TextInput,
   TouchableWithoutFeedback,
-  View,
+  View
 } from 'react-native';
+import { GlobalStyles } from '../global-styles';
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -22,18 +22,18 @@ export default function LoginScreen() {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.container}>
-          <Text style={styles.title}>Sign up / Login</Text>
+        <View style={GlobalStyles.container}>
+          <Text style={GlobalStyles.title}>Sign up / Login</Text>
 
           {/* Input Group */}
-          <View style={styles.groupedInput}>
+          <View style={GlobalStyles.buttonGroup}>
             <TextInput
-              style={styles.input}
+              style={GlobalStyles.textInput}
               placeholder="Email"
               placeholderTextColor="#ccc"
             />
             <TextInput
-              style={styles.input}
+              style={GlobalStyles.textInput}
               placeholder="Password"
               placeholderTextColor="#ccc"
               secureTextEntry
@@ -41,7 +41,7 @@ export default function LoginScreen() {
           </View>
 
           {/* Button Group */}
-          <View style={styles.groupedInput}>
+          <View style={GlobalStyles.buttonGroup}>
             <MenuButton
               title="Log In"
               onPress={() => router.push('/home')}
@@ -59,32 +59,3 @@ export default function LoginScreen() {
     </KeyboardAvoidingView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#0b0b0b',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: 40,
-  },
-  title: {
-    fontSize: 34,
-    fontWeight: 'bold',
-    color: 'white',
-    marginBottom: 40,
-  },
-  input: {
-    width: '80%',
-    backgroundColor: '#1a1a1a',
-    color: 'white',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 12,
-    marginBottom: 20,
-  },
-  groupedInput: {
-    width: '100%',
-    alignItems: 'center',
-  },
-});

@@ -22,7 +22,7 @@ export default function MenuButton({ title, onPress, color = '#1d3557'}: MenuBut
 
 const styles = StyleSheet.create({
   button: {
-    width: '80%',
+    width: '100%',
     paddingVertical: 16,
     borderRadius: 14,
     alignItems: 'center',

@@ -13,6 +13,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+import { GlobalStyles } from "@/global-styles";
 
 export default function NewSessionScreen() {
   const router = useRouter();
@@ -22,7 +23,6 @@ export default function NewSessionScreen() {
   const [casino, setCasino] = useState("");
   const [formError, setFormError] = useState("");
   const { startSession, addBuyIn } = useContext(SessionContext);
-
 
   const handleStartSession = () => {
     if (buyInAmount && casino && smallBlind && bigBlind) {
@@ -48,12 +48,12 @@ export default function NewSessionScreen() {
       behavior={Platform.OS === "ios" ? "padding" : undefined}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.container}>
-          <Text style={styles.title}>New Poker Session</Text>
+        <View style={GlobalStyles.container}>
+          <Text style={GlobalStyles.title}>New Poker Session</Text>
 
-          <Text style={styles.label}>Enter your buy-in:</Text>
+          <Text style={GlobalStyles.label}>Enter your buy-in:</Text>
           <TextInput
-            style={styles.input}
+            style={GlobalStyles.textInput}
             value={buyInAmount}
             onChangeText={setBuyInAmount}
             placeholder="0"
@@ -61,9 +61,9 @@ export default function NewSessionScreen() {
             keyboardType="numeric"
             returnKeyType="done"
           />
-          <Text style={styles.label}>Enter your casino</Text>
+          <Text style={GlobalStyles.label}>Enter your casino</Text>
           <TextInput
-            style={styles.input}
+            style={GlobalStyles.textInput}
             value={casino}
             onChangeText={setCasino}
             placeholder="Enter Casino Here"
@@ -72,11 +72,11 @@ export default function NewSessionScreen() {
           />
 
           {/* Small Blind / Big Blind Row */}
-          <View style={styles.row}>
-            <View style={{ flex: 1, marginRight: 10 }}>
-              <Text style={styles.label}>Small Blind:</Text>
+          <View style={GlobalStyles.row}>
+            <View style={{ flex: 1, marginRight: 5 }}>
+              <Text style={GlobalStyles.label}>Small Blind:</Text>
               <TextInput
-                style={styles.input}
+                style={[GlobalStyles.textInput, { width: "100%" }]}
                 value={smallBlind}
                 onChangeText={setSmallBlind}
                 placeholder="0"
@@ -84,10 +84,10 @@ export default function NewSessionScreen() {
                 keyboardType="numeric"
               />
             </View>
-            <View style={{ flex: 1, marginLeft: 10 }}>
-              <Text style={styles.label}>Big Blind:</Text>
+            <View style={{ flex: 1, marginLeft: 5 }}>
+              <Text style={GlobalStyles.label}>Big Blind:</Text>
               <TextInput
-                style={styles.input}
+                style={[GlobalStyles.textInput, { width: "100%" }]}
                 value={bigBlind}
                 onChangeText={setBigBlind}
                 placeholder="0"
@@ -102,49 +102,11 @@ export default function NewSessionScreen() {
             onPress={handleStartSession}
             color="#e63946"
           />
-          {formError ? <Text style={styles.error}>{formError}</Text> : null}
+          {formError ? (
+            <Text style={GlobalStyles.error}>{formError}</Text>
+          ) : null}
         </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#0b0b0b",
-    alignItems: "center",
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: "bold",
-    color: "white",
-    marginBottom: 30,
-  },
-  label: {
-    color: "white",
-    fontSize: 18,
-    marginBottom: 8,
-  },
-  input: {
-    width: "100%", // each half input fills its flex container
-    backgroundColor: "#1a1a1a",
-    color: "white",
-    fontSize: 18,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 12,
-    marginBottom: 20,
-  },
-  row: {
-    flexDirection: "row",
-    width: "100%",
-    marginBottom: 20,
-  },
-  error: {
-    color: "#e63946",
-    marginBottom: 20,
-  },
-});

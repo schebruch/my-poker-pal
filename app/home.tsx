@@ -5,6 +5,7 @@ import { useContext } from 'react';
 import { SessionContext } from './context/SessionContext';
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { GlobalStyles } from '@/global-styles';
 
 export default function HomeScreen() {
 
@@ -12,8 +13,8 @@ export default function HomeScreen() {
     const { activeSession } = useContext(SessionContext);
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.text}>Welcome, Sam!</Text>
+        <View style={GlobalStyles.container}>
+            <Text style={GlobalStyles.title}>Welcome, Sam!</Text>
             <Text style={styles.text}>Current Bankroll: $10,000</Text>
             <View style={styles.buttonGroup}>
                 {activeSession ? null : <MenuButton
@@ -48,11 +49,6 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#0b0b0b',
-        alignItems: 'center',
-    },
     text: {
         color: 'white',
         fontSize: 24,
